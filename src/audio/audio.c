@@ -14,12 +14,9 @@ int init_audio() {
     char monitor_source[MAX_SOURCE_LEN] = {0};
 
     FILE *fp = fopen(SOURCE_FILE, "r");
-    if (fgets(monitor_source, MAX_SOURCE_LEN, fp) == NULL) {
-            fclose(fp);
-            return -1;
-        }
-        monitor_source[strcspn(monitor_source, "\n")] = 0;
-        fclose(fp);
+    fgets(monitor_source, MAX_SOURCE_LEN, fp);
+    monitor_source[strcspn(monitor_source, "\n")] = 0;
+    fclose(fp);
 
     pa_sample_spec ss = {
         .format = PA_SAMPLE_S16LE, // 16-bit PCM
@@ -28,17 +25,7 @@ int init_audio() {
     };
 
     int error;
-    pa_stream = pa_simple_new(
-        NULL,               // default server
-        "Visualizer",       // app name
-        PA_STREAM_RECORD,
-        monitor_source,     // source from file
-        "audio",            // stream name
-        &ss,
-        NULL, NULL,
-        &error
-    );
-
+    pa_stream = pa_simple_new(NULL,"Visualizer", PA_STREAM_RECORD, monitor_source, "audio", &ss, NULL, NULL, &error);
     return 0;
 }
 

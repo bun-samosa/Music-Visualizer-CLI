@@ -15,7 +15,7 @@ int main() {
             sum += buffer[j];
         }
 
-        printf("Avg sample value: %ld\n", sum / 1024);
+        printf("Avg sample value -> %ld\n", sum / 1024);
     }
 
     cleanup_audio();
