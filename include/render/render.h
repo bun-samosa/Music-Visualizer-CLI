@@ -12,4 +12,4 @@
  */
 void render_bars(const int *bars, int bar_count, int max_height);
 
-#endif // RENDER_H
+#endif
